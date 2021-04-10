@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block title %}Facilities {% endblock %}
+    {% block page-title %}Facilities{% endblock page-title %}
+    {% block content %}
+    <div class="card-columns">
+        <div class="card bg-light" style="width:400px">
+          <img class="card-img-top" src="{% static '/images/facilities/ballroom.jpg' %}" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">Whitworth Ballroom</h4>
+            <p class="card-text">At 50,000 square feet, the Whitworth Ballroom is perfect for any large events</p>
+            <a href="#" class="btn btn-primary">Reserve Now</a>
+          </div>
+        </div>
+        <div class="card bg-light" style="width:400px">
+            <img class="card-img-top" src="{% static '/images/facilities/basketball.jpg' %}" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">Outdoor Court</h4>
+            <p class="card-text">Get some fresh air at our outdoor basketball and tennis courts</p>
+            <a href="#" class="btn btn-primary">Reserve Now</a>
+          </div>
+        </div>
+        <div class="card bg-light" style="width:400px">
+            <img class="card-img-top" src="{% static '/images/facilities/cathedral.jpg' %}" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">Alma Cathedral</h4>
+            <p class="card-text">Built in 1934, the Alma Cathedral is available for weddings, funerals, & raves</p>
+            <a href="#" class="btn btn-primary">Reserve Now</a>
+          </div>
+        </div>
+        <div class="card bg-light" style="width:400px">
+            <img class="card-img-top" src="{% static '/images/facilities/pool.jpg' %}" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">Indoor Pool</h4>
+            <p class="card-text">Enjoy exercising year-round in our Olympic-sized indoor pool</p>
+            <a href="#" class="btn btn-primary">Reserve Now</a>
+          </div>
+        </div>
+        <div class="card bg-light" style="width:400px">
+            <img class="card-img-top" src="{% static '/images/facilities/auditorium.jpg' %}" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">Scarlett Auditorium</h4>
+            <p class="card-text">Perfect for plays and presentations, the Scarlett Auditorium seats over 300</p>
+            <a href="#" class="btn btn-primary">Reserve Now</a>
+          </div>
+        </div>
+        <div class="card bg-light" style="width:400px">
+            <img class="card-img-top" src="{% static '/images/facilities/wedding.jpg' %}" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">La Salle à Manger</h4>
+            <p class="card-text">La Salle à Manger is ideal for reunions, tea parties, and other small events</p>
+            <a href="#" class="btn btn-primary">Reserve Now</a>
+          </div>
+        </div>
+      </div>
+    {% endblock content %}

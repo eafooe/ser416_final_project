@@ -1,0 +1,207 @@
+<!--Adapted from https://www.selimatmaca.com/211-base-template/-->
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title block-->
+    <title>GSS | {% block title %}{% endblock title %}</title>
+    <!-- CSS styling (bootstrap + custom) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/styles/base.css' %}" type="text/css">
+    <!-- Other CSS styling block -->
+    {% block css %}
+    {% endblock css %}
+</head>
+<body id="bootstrap-overrides">
+    
+    <!-- Top navigation bar -->
+    <!-- https://www.codeply.com/go/3e0RAjccRO/bootstrap-4-collapsing-sidebar-menu-->
+    <nav class="navbar navbar-expand-md navbar-light bg-primary">
+        <!-- Hamburger menu-->
+        <a data-toggle="toggle-sidebar" id="test" class="text-dark hoverable"><i class="fas fa-bars fa-fw mr-3 ml-1"></i></a>
+        <!-- Icon-->
+        <a class="navbar-brand" href="/"> 
+            <img src="{% static '/favicon/brand-logo-name.png' %}" height="22" class="header-icon" alt="">
+        </a>
+        <!-- Right-aligned links/buttons -->
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li> -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link bolded" href="/donate">
+                        <img src="{% static '/favicon/coin-logo.svg' %}" class="coin mr-1">Donate&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a>
+                </li>  -->
+
+                {% if user.is_authenticated %}
+                {% else %}
+                <a class="btn btn-dark" href="/login">Log in</a>
+                <a class="btn btn-primary ml-2 mr-2" href="/register">Sign up</a>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <!-- End top navigation bar-->
+
+
+    <!-- Sidebar and content-->
+    <div class="container-fluid">
+        <div class="row" id="body-row">
+                <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+                    <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+                    <!-- Bootstrap List Group -->
+                    <ul class="list-group">
+                        <!-- Separator with title -->
+
+
+                        <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                            <small>MAIN MENU</small>
+                        </li>
+                        <!-- /END Separator -->
+                        <!-- /END Separator -->
+                        <a href="/" class="bg-light list-group-item list-group-item-action flex-column text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-home fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">Home</span>
+                            </div>
+                        </a>
+                        <a href="/about" class="bg-light list-group-item list-group-item-action text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-info-circle fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">About</span>
+                            </div>
+                        </a>
+                        <a href="/donate" class="bg-light list-group-item list-group-item-action text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <!-- <span class="fas fa-dollar-sign fa-fw mr-3 menu-icon"></span> -->
+                                <!--Source: freepik.com-->
+                                <span class="fa-fw mr-3 menu-icon coin"><img src="{% static '/favicon/coin-logo.svg' %}"></span>
+                                <span class="menu-collapsed">Donate</span>
+                            </div>
+                        </a>
+                        <a href="/calendar" class="bg-light list-group-item list-group-item-action text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-r fa-calendar-alt fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">Calendar</span>
+                            </div>
+                        </a>
+                        <a href="/programs" class="bg-light list-group-item list-group-item-action text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-hands-helping fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">Programs & Services</span>
+                            </div>
+                        </a>
+                        <a href="/facilities" class="bg-light list-group-item list-group-item-action text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-building fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">Facilities</span>
+                            </div>
+                        </a>
+                        
+
+                        <a href="/contact" class="bg-light list-group-item list-group-item-action text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-phone-alt fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">Contact Us</span>
+                            </div>
+                        </a>
+
+                        {% if user.is_authenticated %}
+                
+                        <!-- Separator with title -->
+                        <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                            <small style="color:black;">MY ACCOUNT</small>
+                        </li>
+
+                        <a href="/profile"
+                            class="bg-light list-group-item list-group-item-action flex-column align-items-start text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-user fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">Profile</span>
+                            </div>
+                        </a>
+
+                        <!-- Reservations Subcategory-->
+                        <a href="/reservations" class="bg-light list-group-item list-group-item-action flex-column align-items-start text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="far fa-calendar-check fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">My Reservations</span>
+                            </div>
+                        </a>
+
+
+
+                        <!-- Separator without title 
+                        <li class="sidebar-separator"></li>
+                        /END Separator -->
+
+                        <a href="/logout" class="bg-light list-group-item list-group-item-action text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-sign-out-alt fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">Log Out</span>
+                            </div>
+                        </a>
+                        {% else %}
+                        {% endif %}
+                    </ul>
+            </div>
+
+            <!-- Main content-->
+            <div class="col p-4 main">
+                <div class="row">
+                    <div style="width:100%">
+                        <h1>{% block page-title %}{% endblock page-title %}</h1>
+                    </div>
+                    <div style="margin-left: 0px !important;padding-left: 0px !important;">
+                        {% block content %}
+                        {% endblock content%}
+                        <!-- <div class="row d-flex flex-column my-footer">
+                            <span class="text-center text-muted text-dark"><small>© 2021 GSS</small></span>
+                        </div> -->
+                    </div>
+                    
+                
+                
+                </div>
+               
+                
+            </div>
+                
+            
+        </div>     <!-- end row-->
+        
+    </div> <!-- end fluid container-->
+
+    
+    
+    <!-- Optional JavaScript -->
+
+    <!--jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+  src="https://code.jquery.com/jquery-3.5.1.js"
+  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <script src="{% static 'scripts/base.js' %}"></script> 
+    
+    
+</body>
+
+</html>

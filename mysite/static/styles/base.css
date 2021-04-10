@@ -1,0 +1,69 @@
+body, html {
+    height: 100vh;
+    /*font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;*/
+} 
+html {
+    visibility: hidden;
+}
+
+p {
+    font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+}
+.coin {
+    padding-bottom: 0.125em;
+}
+
+.header-icon{
+    vertical-align: text-bottom;
+    padding-left:25px;
+}
+
+.bolded {
+    font-weight: bold;
+}
+
+.hoverable:hover {
+    cursor: pointer;
+}
+/* #bootstrap-overrides .my-footer {
+   
+    margin-bottom: -15px;
+} */
+
+#bootstrap-overrides .bg-primary {
+    background-color: #a6dfd5 !important;
+}
+
+#bootstrap-overrides .container-fluid {
+    top:60px;
+    height: calc(100vh - 60px);
+    width: 100vw;
+    margin-left: 0px;
+    margin-right: 0px;
+    position:fixed;
+}
+#bootstrap-overrides .navbar {
+    height: 60px;
+    width: 100vw;
+    position:fixed;
+}
+
+#bootstrap-overrides .main {
+    padding-bottom: 0px !important;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+    margin: 0px;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+
+#sidebar-container > ul > li {
+    border-radius: 0px;
+}
+
+.btn-primary {
+    background-color: #E0494B !important;
+    border-color: #9E0F13  !important;
+}
+
