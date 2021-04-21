@@ -48,6 +48,11 @@ p {
     position:fixed;
 }
 
+
+body.modal-open div.modal-backdrop { 
+    z-index: 0; 
+}
+
 #bootstrap-overrides .main {
     padding-bottom: 0px !important;
     padding-left: 40px !important;

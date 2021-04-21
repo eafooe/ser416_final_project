@@ -1,6 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
     {% block title %}My Reservations {% endblock %}
-    {% block page-title %}My Reservations{% endblock page-title %}
     {% block content %}
+    <h2>Reservations</h2>
+    {% if list %}
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Fee</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in list %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.offering_type}}</td>
+                    <td>{{ item.description }}</td>
+                    <td>${{ item.fee }}</td>
+                    <td>{{ item.start_time }} - {{ item.get_end_time }}</td>
+                    <td>{{ item.location }}</td>
+                    {% if user.role == "Member" %}
+                        <td>
+                            <form method="POST" action="/unbook" id="unbook-form">
+                                <input type="hidden" id="id" name="id" value="{{item.id}}">
+                        <button type="submit" class="btn btn-primary">Cancel</button>
+                    </form>
+                        </td>
+                      {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        No courses reserved.
+    {% endif %}
     {% endblock content %}

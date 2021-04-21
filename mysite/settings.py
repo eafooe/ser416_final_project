@@ -42,7 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'users',
+    'data',
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,7 +132,7 @@ STATIC_ROOT = os.path.join(SITE_ROOT,'root')
 STATICFILES_DIRS = [
     os.path.join(SITE_ROOT, 'static'),
 ]
-AUTH_USER_MODEL = 'users.CustomUser'
+
 
 TEMPLATES = [
     {

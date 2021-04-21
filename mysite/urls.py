@@ -50,16 +50,24 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^about/$', views.about, name='about'),
     url(r'^calendar/$', views.calendar, name='calendar'),
-    url(r'^facilities/$', views.facilities, name='facilities'),
+    url(r'^courses/$', views.courses, name='courses'),
     url(r'^contact/$', views.contact, name='contact'),
-    url(r'^programs/$', views.programs, name='programs'),
+    url(r'^services/$', views.services, name='programs'),
+    url(r'^rentals/$', views.rentals, name='rentals'),
     url(r'^donate/$', views.donate, name='donate'),
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^reservations/$', views.reservations, name='reservations'),
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon/favicon.svg')),
     url(r'^login/$', auth_views.LoginView.as_view(template_name="registration/login.html"), name='login'),
+    url(r'^employee-login/$', auth_views.LoginView.as_view(template_name="registration/employee-login.html"), name='employee-login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^register/$', views.register, name='register')
-   
+    url(r'^register/$', views.register, name='register'),
+    url(r'^dummy/$', views.dummy, name='dummy'),
+    url(r'^book', views.book, name='book'),
+    url(r'^unbook', views.unbook, name='unbook'),
+    url(r'^addCard', views.addCard, name='addCard'),
+    url(r'^donation', views.donation, name='donation'),
+    url(r'^add_offering', views.add_offering, name='add_offering'),
+    url(r'^deleteOffering', views.deleteOffering, name='deleteOffering'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+{% block page-title %}{{title}}{% endblock page-title %}
+{% block content %}
+{% if user.role == "Employee" %}
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOfferingModal">Add New
+  {{list.0.offering_type}} <i class="fas fa-plus-circle"></i> </button>
+{% endif %}
+{% if list %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Fee</th>
+      <th>Date</th>
+      <th>Seats Available</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in list %}
+    {% if not item.current_occupancy %}
+    <tr style="background-color: #F2F2F2;">
+      {% else %}
+    <tr>
+      {% endif %}
+      <td>{{ item.name }}</td>
+      <td>{{ item.description }}</td>
+      {% if item.fee == 0 %}
+      <td style="font-style:italic; font-weight: bold;">FREE</td>
+      {% else %}
+      <td>${{ item.fee }}</td>
+      {% endif %}
+      <td>{{ item.start_time }} - {{ item.get_end_time }}</td>
+      {% if item.current_occupancy %}
+      <td>{{ item.current_occupancy}} / {{ item.maximum_occupancy }}</td>
+      {% else %}
+      <td style="color:red;">Not Available</td>
+      {% endif %}
+      {% if user.role == "Employee" %}
+      <td>
+        <form id="deleteForm" name="deleteForm" action="/deleteOffering" method="POST">
+          <input type="hidden" name="idToDelete" id="idToDelete" value="{{item.id}}">
+          <button type="button" class="btn btn-secondary">Edit</button>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </td>
+      {% endif %}
+      {% if user.role == "Member" %}
+      {% if item.current_occupancy > 0 %}
+      <td>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+          data-id="{{item.id}}" data-fee="{{item.fee}}">Book</button>
+      </td>
+      {% else %}
+      <td>
+        <button type="button" class="btn btn-primary" disabled>Book</button>
+      </td>
+      {% endif %}
+      {% endif %}
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Book Offering</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div id="paymentArea" style="display:none;">
+                {% include "payment.html" %}
+              </div>
+              <p id="freeOffering" style="display:none;">No payment information is necessary since this service is
+                provided free of charge.</p>
+            </div>
+            <div class="modal-footer">
+              <div class="alert alert-success" role="alert" style="display: none;" id="status-message">
+                Book successful
+              </div>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="reloadPage()">Close</button>
+              <form action='/book' method='POST' id="book-form">
+                <input type="hidden" name="offering-id" id="offering-id" value="default">
+                <button type="submit" class="btn btn-primary">Book</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+No {{title}} are currently available.
+{% endif %}
+{% endblock content %}
+{% block ending %}
+{% if user.role == "Employee" %}
+<!-- Add Offering Modal -->
+<div class="modal fade" id="addOfferingModal" tabindex="-1" role="dialog" aria-labelledby="addOfferingModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addOfferingModalLabel">Add Offering</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/add_offering">
+          <div class="form-group">
+            <label for="offering-type" class="col-sm-2 col-form-label">Type</label>
+            <select name="offering-type" id="offering-type" class="form-control">
+              <option value="" selected disabled></option>
+              <option value="Course">Course</option>
+              <option value="Rental">Rental</option>
+              <option value="Service">Service</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="offering-name" class="col-sm-2 col-form-label">Name</label>
+            <input id="offering-name" name="offering-name" class="form-control" type="text"
+              placeholder="Software Project Mgmt. Seminar" required>
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
+            <input id="description" name="description" class="form-control" type="text"
+              placeholder="Optional description" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="fee" class="col-sm-2 col-form-label">Fee</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">$</div>
+              </div>
+              <input type="number" class="form-control" name="fee" id="fee" step="0.01" placeholder="5.00" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="start">Start</label>
+            <input id="start" name="start" class="form-control" type="datetime-local" required>
+          </div>
+          <div class="form-group">
+            <label for="end">End</label>
+            <input id="end" name="end" class="form-control" type="datetime-local" required>
+          </div>
+          <div class="form-group">
+            <label for="maxOccupancy">Seats Available</label>
+            <input id="maxOccupancy" name="maxOccupancy" class="form-control" type="number" step="1" max="30" min="1"
+              required>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <div class="alert alert-success" role="alert" style="display: none;" id="status-message">
+          Creation successful
+        </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="reloadPage()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock ending %}
+{% block js %}
+<script src="{% static 'scripts/book.js' %}"></script>
+{% endblock js %}

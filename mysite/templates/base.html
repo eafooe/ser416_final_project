@@ -95,20 +95,24 @@
                                 <span class="menu-collapsed">Calendar</span>
                             </div>
                         </a>
-                        <a href="/programs" class="bg-light list-group-item list-group-item-action text-dark">
+                        <a href="/courses" class="bg-light list-group-item list-group-item-action text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-paint-brush fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">Courses</span>
+                            </div>
+                        </a>
+                        <a href="/rentals" class="bg-light list-group-item list-group-item-action text-dark">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fas fa-bicycle fa-fw mr-3 menu-icon"></span>
+                                <span class="menu-collapsed">Rentals</span>
+                            </div>
+                        </a>
+                        <a href="/services" class="bg-light list-group-item list-group-item-action text-dark">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-hands-helping fa-fw mr-3 menu-icon"></span>
-                                <span class="menu-collapsed">Programs & Services</span>
+                                <span class="menu-collapsed">Services</span>
                             </div>
                         </a>
-                        <a href="/facilities" class="bg-light list-group-item list-group-item-action text-dark">
-                            <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fas fa-building fa-fw mr-3 menu-icon"></span>
-                                <span class="menu-collapsed">Facilities</span>
-                            </div>
-                        </a>
-                        
-
                         <a href="/contact" class="bg-light list-group-item list-group-item-action text-dark">
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fas fa-phone-alt fa-fw mr-3 menu-icon"></span>
@@ -131,13 +135,15 @@
                             </div>
                         </a>
 
-                        <!-- Reservations Subcategory-->
-                        <a href="/reservations" class="bg-light list-group-item list-group-item-action flex-column align-items-start text-dark">
-                            <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="far fa-calendar-check fa-fw mr-3 menu-icon"></span>
-                                <span class="menu-collapsed">My Reservations</span>
-                            </div>
-                        </a>
+                            {% if user.role == "Member" %}
+                                <!-- Reservations Subcategory-->
+                                <a href="/reservations" class="bg-light list-group-item list-group-item-action flex-column align-items-start text-dark">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <span class="far fa-calendar-check fa-fw mr-3 menu-icon"></span>
+                                        <span class="menu-collapsed">My Reservations</span>
+                                    </div>
+                                </a>
+                            {% endif %}
 
 
 
@@ -181,7 +187,10 @@
         </div>     <!-- end row-->
         
     </div> <!-- end fluid container-->
-
+<div>
+    {% block ending %}
+    {% endblock ending %}
+</div>
     
     
     <!-- Optional JavaScript -->
@@ -201,7 +210,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <script src="{% static 'scripts/base.js' %}"></script> 
     
-    
+    {% block js %}
+    {% endblock js %}
 </body>
 
 </html>
